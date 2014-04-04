@@ -1,40 +1,41 @@
 {
-  "name": "mojito-cli-create",
-  "version": "0.1.2",
-  "description": "Subcommand for mojito-cli to create mojito scaffolding/boilerplate.",
-  "dependencies": {
-    "mkdirp": "~0.3.5",
-    "npmlog": "0.0.2",
-    "scanfs": "~0.1.0",
-    "through": "~2.3.1",
-    "which": "~1.0.5"
-  },
-  "devDependencies": {
-    "tap": "~0.4.1"
-  },
-  "scripts": {
-    "lint": "jshint {.,lib}/*.js*",
-    "pretest": "npm run clean",
-    "test": "tap tests/index.js",
-    "cover": "istanbul cover --dir artifacts/coverage tests",
-    "clean": "git clean -dfX {.,tests}/artifacts"
-  },
-  "repository": "git://github.com/yahoo/mojito-cli-create.git",
-  "bugs": "https://github.com/yahoo/mojito-cli-create/issues",
-  "contributors": [
-    "Chris Klaiber",
-    "Drew Folta <folta@yahoo-inc.com>",
-    "Martin Cooper <mcooper@yahoo-inc.com>",
-    "Matt Taylor",
-    "Ric Allinson <allinson@yahoo-inc.com>",
-    "Scott Shattuck"
-  ],
-  "author": "Isao Yagi <isao@yahoo-inc.com>",
-  "license": "BSD",
-  "readmeFilename": "README.md",
-  "keywords": [
-    "mojito",
-    "boilerplate",
-    "init"
-  ]
+    "name": "mojito-cli-create",
+    "version": "1.0.0",
+    "description": "Subcommand for mojito-cli for scaffolding mojito applications.",
+    "scripts": {
+        "test": "grunt jshint"
+    },
+     "licenses": [
+        {
+            "type": "BSD",
+            "url": "https://github.com/yahoo/generator-mojito/blob/master/LICENSE.txt"
+        }
+    ],
+    "repository": "git://github.com/yahoo/mojito-cli-create.git",
+    "bugs": "https://github.com/yahoo/mojito-cli-create/issues",
+    "author": "Isao Yagi <isao@yahoo-inc.com>",
+    "contributors": [
+        "Albert Jimenez <jimenez@yahoo-inc.com>",
+        "Chris Klaiber",
+        "Drew Folta <folta@yahoo-inc.com>",
+        "Isao Yagi <isao@yahoo-inc.com>",
+        "Martin Cooper <mcooper@yahoo-inc.com>",
+        "Matt Taylor",
+        "Ric Allinson <allinson@yahoo-inc.com>",
+        "Scott Shattuck"
+    ],
+    "license": "BSD",
+    "keywords": [
+        "mojito",
+        "scaffolding"
+    ],
+    "dependencies": {
+        "generator-mojito": "*",
+        "yeoman-generator": "0.16.x",
+        "nopt": "2.2.x"
+    },
+    "devDependencies": {
+        "grunt": "0.4.x",
+        "grunt-contrib-jshint": "0.x"
+    }
 }
