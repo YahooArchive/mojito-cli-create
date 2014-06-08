@@ -12,21 +12,47 @@ var nopt = require('nopt'),
     }, {
         '-h' : '--help'
     }),
-    args = opts.argv.remain;
+    args = opts.argv.remain,
+    _ = require('yeoman-generator/node_modules/lodash'),
+    libpath = require('path'),
+    mockery = require('mockery');
 
 function main() {
-    // Saving cwd in order to switch to this directory and then go back.
-    // This allows yeoman to find generator-mojito.
-    var cwd = process.cwd();
-    process.chdir(__dirname);
+    var generator,
+        i,
+        unnecessaryModules = [
+            './actions/fetch',
+            './actions/string',
+            './actions/wiring',
+            './util/common',
+            './actions/user',
+            'shelljs'
+        ];
 
-    // Create yeoman environment object.
-    var env = require('yeoman-generator')();
-    env.alias(/^([^:]+)$/, '$1:all');
-    env.alias(/^([^:]+)$/, '$1:app');
-    env.lookup();
+    opts.env = {
+        create: function (name) {
+            var generatorName = name.replace('mojito:', ''),
+                meta = {
+                    resolved: libpath.resolve(__dirname, './node_modules/generator-mojito/lib/generators/' + (generatorName === 'mojito' ? 'app' : generatorName) + '/index.js'),
+                    namespace: name
+                },
+                Generator = require(meta.resolved);
+            _.extend(Generator, meta);
+            opts.resolved = meta.resolved;
+            opts.name = generatorName;
 
-    process.chdir(cwd);
+            return new Generator(args.splice(1), opts);
+        }
+    };
+
+    mockery.enable({
+        warnOnReplace: false,
+        warnOnUnregistered: false
+    });
+
+    for (i = 0; i < unnecessaryModules.length; i++) {
+        mockery.registerMock(unnecessaryModules[i], function () {});
+    }
 
     // Remove the first argument which is always 'create'.
     args.splice(0, 1);
@@ -43,7 +69,17 @@ function main() {
         args[0] = 'mojito:' + args[0];
     }
 
-    env.run(args, opts);
+    try {
+        generator = opts.env.create(args[0]);
+    } catch (e) {
+        console.error('Invalid create option. See \'mojito create --help\'');
+        process.exit(1);
+    }
+
+    if (opts.help) {
+        return console.log(generator.help());
+    }
+    generator.run();
 }
 
 module.exports = main;
