@@ -5,7 +5,7 @@
     "scripts": {
         "test": "grunt jshint"
     },
-     "licenses": [
+    "licenses": [
         {
             "type": "BSD",
             "url": "https://github.com/yahoo/generator-mojito/blob/master/LICENSE.txt"
@@ -32,7 +32,8 @@
     "dependencies": {
         "generator-mojito": "*",
         "yeoman-generator": "0.16.x",
-        "nopt": "2.2.x"
+        "nopt": "2.2.x",
+        "mockery": "1.4.x"
     },
     "devDependencies": {
         "grunt": "0.4.x",
